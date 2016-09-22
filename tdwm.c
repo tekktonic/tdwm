@@ -113,7 +113,7 @@ typedef struct {
 
 struct Monitor {
 	char ltsymbol[16];
-	float mfact[10];
+	float mfact;
 	int nmaster;
 	int num;
 	int by;               /* bar geometry */
@@ -121,7 +121,6 @@ struct Monitor {
 	int wx, wy, ww, wh;   /* window area  */
 	unsigned int seltags;
 	unsigned int sellt;
-    unsigned int primtag;
 	unsigned int tagset[2];
 	int showbar;
 	int topbar;
@@ -654,11 +653,10 @@ createmon(void)
 
 	m = calloc(1, sizeof(Monitor));
 	m->tagset[0] = m->tagset[1] = 1;
-	memcpy(m->mfact, mfact, sizeof(mfact));
+    m->mfact = mfact;
 	m->nmaster = nmaster;
 	m->showbar = showbar;
 	m->topbar = topbar;
-    m->primtag = 0;
 	m->lt[0] = &layouts[0];
 	m->lt[1] = &layouts[1 % LENGTH(layouts)];
 	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
@@ -1567,10 +1565,10 @@ setmfact(const Arg *arg)
 
 	if (!arg || !selmon->lt[selmon->sellt]->arrange)
 		return;
-	f = arg->f < 1.0 ? arg->f + selmon->mfact[selmon->primtag] : arg->f - 1.0;
+	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
 	if (f < 0.1 || f > 0.9)
 		return;
-	selmon->mfact[selmon->primtag] = f;
+	selmon->mfact = f;
 	arrange(selmon);
 }
 
@@ -1692,7 +1690,7 @@ stack(Monitor *m)
 		return;
 
 	if (n > m->nmaster)
-		mh = m->nmaster ? m->wh * m->mfact[m->primtag] : 0;
+		mh = m->nmaster ? m->wh * m->mfact : 0;
 	else
 		mh = m->wh;
 	for (i = mx = tx = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
@@ -1737,7 +1735,7 @@ tile(Monitor *m)
 		return;
 
 	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact[m->primtag] : 0;
+		mw = m->nmaster ? m->ww * m->mfact : 0;
 	else
 		mw = m->ww;
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
@@ -2075,31 +2073,11 @@ updatewmhints(Client *c)
 void
 view(const Arg *arg)
 {
-    static unsigned int lasttag;
-    
-    // There's a special case for cleanup, so take care of that
-    unsigned int tagspot;
-    
-    if (arg->ui == ~0) {
-        tagspot = arg->ui;
-    }
-    else if (arg->ui == (~0)-1) {
-        selmon->primtag = lasttag;
-        tagspot = 0;
-    }
-    else {
-        lasttag = selmon->primtag;
-        selmon->primtag = arg->ui;
-
-        tagspot = 1 << (arg->ui);
-    }
-    
-    
-	if ((tagspot & TAGMASK) == selmon->tagset[selmon->seltags])
+	if ((arg->ui & TAGMASK) == selmon->tagset[selmon->seltags])
 		return;
 	selmon->seltags ^= 1; /* toggle sel tagset */
-	if (tagspot & TAGMASK)
-		selmon->tagset[selmon->seltags] = tagspot & TAGMASK;
+	if (arg->ui & TAGMASK)
+		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
 	focus(NULL);
 
 	arrange(selmon);
