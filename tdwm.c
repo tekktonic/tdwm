@@ -2075,13 +2075,25 @@ updatewmhints(Client *c)
 void
 view(const Arg *arg)
 {
+    static unsigned int lasttag;
+    
     // There's a special case for cleanup, so take care of that
     unsigned int tagspot;
-
-    if (arg->ui != ~0)
-        tagspot = 1 << (arg->ui);
-    else
+    
+    if (arg->ui == ~0) {
         tagspot = arg->ui;
+    }
+    else if (arg->ui == (~0)-1) {
+        selmon->primtag = lasttag;
+        tagspot = 0;
+    }
+    else {
+        lasttag = selmon->primtag;
+        selmon->primtag = arg->ui;
+
+        tagspot = 1 << (arg->ui);
+    }
+    
     
 	if ((tagspot & TAGMASK) == selmon->tagset[selmon->seltags])
 		return;
@@ -2090,7 +2102,6 @@ view(const Arg *arg)
 		selmon->tagset[selmon->seltags] = tagspot & TAGMASK;
 	focus(NULL);
 
-    selmon->primtag = arg->ui;
 	arrange(selmon);
 }
 
