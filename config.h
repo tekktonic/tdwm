@@ -51,7 +51,7 @@ static const Layout layouts[] = {
 #define ALTMODKEY Mod1Mask|ControlMask
 
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = TAG} }, \
+	{ MODKEY,                       KEY,      view,           {.i = TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = TAG} }, \
 
 /* helper for spawning shell commands in the pre tdwm-5.0 fashion */
@@ -79,7 +79,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_i,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
+	{ MODKEY,                       XK_Tab,    view,           {.i=-1} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY|ShiftMask,             XK_s,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[1]} },

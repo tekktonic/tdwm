@@ -1876,9 +1876,19 @@ updatewmhints(Client *c)
 void
 view(const Arg *arg)
 {
-	if (arg->ui == selmon->currtag)
+    static unsigned int lasttag = 0;
+	if (arg->i == selmon->currtag)
 		return;
-    selmon->currtag = arg->ui;
+    if (arg->i == -1) {
+        unsigned int tmp = lasttag;
+        lasttag = selmon->currtag;
+        selmon->currtag = tmp;
+    }
+    else {
+        lasttag = selmon->currtag;
+        selmon->currtag = arg->ui;
+    }
+    
 	focus(NULL);
 
 	arrange(selmon);
