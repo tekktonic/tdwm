@@ -17,7 +17,7 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -25,17 +25,16 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
-	{ "Firefox",  NULL,       NULL,       1 << 0,       0,           -1 },
-	{ "chromium-browser", NULL,       NULL,       1 << 2,       0,           -1 },
-	{ "Emacs",    NULL,       NULL,       1 << 3,       0,           -1 },
-	{ "Skype",    NULL,       NULL,    1 << 1,       0,           -1 },
-	{ "Pidgin",    NULL,      NULL,   1 << 1,       0,           -1 },
-    { "libreoffice",    NULL,      NULL,   1 << 2,       0,           -1 },
+	{ "Firefox",  NULL,       NULL,       0,       0,           -1 },
+	{ "chromium-browser", NULL,       NULL,       2,       0,           -1 },
+	{ "Emacs",    NULL,       NULL,       3,       0,           -1 },
+	{ "Skype",    NULL,       NULL,    1,       0,           -1 },
+	{ "Pidgin",    NULL,      NULL,   1,       0,           -1 },
+    { "libreoffice",    NULL,      NULL,   2,       0,           -1 },
 };
 
 /* layout(s) */
-static const float mfact = 0.55;; /* factor of master area size [0.05..0.95] */
+static const float mfact = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -52,8 +51,8 @@ static const Layout layouts[] = {
 #define ALTMODKEY Mod1Mask|ControlMask
 
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY,                       KEY,      view,           {.ui = TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = TAG} }, \
 
 /* helper for spawning shell commands in the pre tdwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -88,8 +87,6 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
@@ -104,6 +101,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
+    TAGKEYS(                        XK_0,                      9)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
