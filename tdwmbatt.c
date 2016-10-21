@@ -36,7 +36,7 @@ int main(void)
     if (!fd)
         return 1;
     fread(charge_buf, 1, 9, fd);
-
+    fclose(fd);
     batt_charging = !strcmp(charge_buf, charging);
 
     #else
