@@ -6,7 +6,7 @@ include config.mk
 SRC = drw.c tdwm.c util.c
 OBJ = ${SRC:.c=.o}
 
-all: options tdwm
+all: options tdwm tdwmbatt
 
 options:
 	@echo tdwm build options:
@@ -30,7 +30,7 @@ tdwm: ${OBJ}
 
 clean:
 	@echo cleaning
-	@rm -f tdwm ${OBJ} dwm-${VERSION}.tar.gz
+	@rm -f tdwm tdwmbatt ${OBJ} tdwm-${VERSION}.tar.gz
 
 dist: clean
 	@echo creating dist tarball
