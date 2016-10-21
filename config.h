@@ -33,6 +33,7 @@ static const Rule rules[] = {
 	{ "Skype",            NULL,       NULL,       1,       0,           -1 },
 	{ "Pidgin",           NULL,       NULL,       1,       0,           -1 },
     { "Kopete",           NULL,       NULL,       1,       0,           -1 },
+    { "Steam",            NULL,       NULL,       4,       0,           -1 },
     { "libreoffice",      NULL,       NULL,       2,       0,           -1 },
 };
 
