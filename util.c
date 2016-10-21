@@ -31,3 +31,17 @@ die(const char *fmt, ...) {
 
 	exit(1);
 }
+
+#ifdef NO_STRL
+size_t
+strlcpy(char *dst, const char *src, size_t size)
+{
+    for (int i = 0; i < size - 1 && *src != '\0'; i++) {
+        *dst++ = *src++;
+    }
+
+    dst[size] = '\0';
+
+    return strlen(src)+1;
+}
+#endif

@@ -6,3 +6,7 @@
 
 void die(const char *errstr, ...);
 void *ecalloc(size_t, size_t);
+
+#ifdef NO_STRL
+size_t strlcpy(char *dst, const char *src, size_t size);
+#endif
