@@ -50,6 +50,8 @@ install: all
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/tdwmclock.sh
 	@cp -f tdwmvol.sh ${DESTDIR}${PREFIX}/bin
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/tdwmvol.sh
+	@cp -f tdwmbatt ${DESTDIR}${PREFIX}/bin
+	@chmod 755 ${DESTDIR}${PREFIX}/bin/tdwmbatt
 	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	@sed "s/VERSION/${VERSION}/g" < tdwm.1 > ${DESTDIR}${MANPREFIX}/man1/tdwm.1
