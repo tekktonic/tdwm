@@ -6,7 +6,7 @@ include config.mk
 SRC = drw.c tdwm.c util.c
 OBJ = ${SRC:.c=.o}
 
-all: options tdwm tdwmbatt
+all: options tdwm tdwmbatt tdwmtemp
 
 options:
 	@echo tdwm build options:
@@ -30,7 +30,7 @@ tdwm: ${OBJ}
 
 clean:
 	@echo cleaning
-	@rm -f tdwm tdwmbatt ${OBJ} tdwm-${VERSION}.tar.gz
+	@rm -f tdwm tdwmbatt tdwmtemp ${OBJ} tdwm-${VERSION}.tar.gz
 
 dist: clean
 	@echo creating dist tarball
@@ -52,6 +52,8 @@ install: all
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/tdwmvol.sh
 	@cp -f tdwmbatt ${DESTDIR}${PREFIX}/bin
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/tdwmbatt
+	@cp -f tdwmtemp ${DESTDIR}${PREFIX}/bin
+	@chmod 755 ${DESTDIR}${PREFIX}/bin/tdwmtemp
 	@echo installing manual page to ${DESTDIR}${MANPREFIX}/man1
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	@sed "s/VERSION/${VERSION}/g" < tdwm.1 > ${DESTDIR}${MANPREFIX}/man1/tdwm.1
