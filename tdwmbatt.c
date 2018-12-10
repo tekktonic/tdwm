@@ -25,14 +25,14 @@ int main(void)
     #elif __linux__
     #include <string.h>
     char *charging = "Charging\n";
-    char charge_buf[10] = {};
-    FILE *fd = fopen("/sys/class/power_supply/BAT0/capacity", "r");
+    char charge_buf[10] = {0};
+    FILE *fd = fopen("/sys/class/power_supply/BAT/capacity", "r");
     if (!fd)
         return 1;
 
     fscanf(fd, "%d", &batt_life);
     fclose(fd);
-    fd = fopen("/sys/class/power_supply/BAT0/status", "r");
+    fd = fopen("/sys/class/power_supply/BAT/status", "r");
     if (!fd)
         return 1;
     fread(charge_buf, 1, 9, fd);
