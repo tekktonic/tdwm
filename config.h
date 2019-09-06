@@ -11,7 +11,7 @@ static const char normfgcolor[]     = "#eeeeee";
 static const char selbordercolor[]  = "#005577";
 static const char selbgcolor[]      = "#005577";
 static const char selfgcolor[]      = "#eeeeee";
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -25,12 +25,14 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class              instance    title       tag     isfloating   monitor */
-	{ "Firefox",          NULL,       NULL,       0,       0,           -1 },
+    { "Firefox",          NULL,       NULL,       0,       0,           -1 },
+    { "Palemoon",         NULL,       NULL,       2,       0,           -1 },
 	{ "chromium-browser", NULL,       NULL,       2,       0,           -1 },
     { "Seamonkey",        NULL,       NULL,       2,       0,           -1 },
 	{ "Emacs",            NULL,       NULL,       3,       0,           -1 },
-    { "Vim",              NULL,       NULL,       3,       0,           -1 },
-	{ "Skype",            NULL,       NULL,       1,       0,           -1 },
+    { "Discord",          NULL,       NULL,       1,       0,           -1 },
+    { "Slack",            NULL,       NULL,       1,       0,           -1 },
+    { "Skype",            NULL,       NULL,       1,       0,           -1 },
 	{ "Pidgin",           NULL,       NULL,       1,       0,           -1 },
     { "Kopete",           NULL,       NULL,       1,       0,           -1 },
     { "Steam",            NULL,       NULL,       4,       0,           -1 },
