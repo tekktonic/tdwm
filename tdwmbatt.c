@@ -26,13 +26,13 @@ int main(void)
     #include <string.h>
     char *charging = "Charging\n";
     char charge_buf[10] = {0};
-    FILE *fd = fopen("/sys/class/power_supply/BAT/capacity", "r");
+    FILE *fd = fopen("/sys/class/power_supply/BAT0/capacity", "r");
     if (!fd)
         return 1;
 
     fscanf(fd, "%d", &batt_life);
     fclose(fd);
-    fd = fopen("/sys/class/power_supply/BAT/status", "r");
+    fd = fopen("/sys/class/power_supply/BAT0/status", "r");
     if (!fd)
         return 1;
     fread(charge_buf, 1, 9, fd);
@@ -40,7 +40,7 @@ int main(void)
     batt_charging = !strcmp(charge_buf, charging);
 
     #else
-    #error "Only openbsd supported right now"
+    #error "Only openbsd and linux supported right now"
     #endif
 
     printf("%d%% %s\n", batt_life, batt_charging ? "⌁" : " ");
