@@ -54,6 +54,9 @@
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 */
 
+
+#define OPAQUE 0xffffffff
+
 /* function implementations */
 void
 applyrules(Client *c)
@@ -90,6 +93,11 @@ applyrules(Client *c)
 		XFree(ch.res_name);
 }
 
+void
+settrans(Client *c, Rule *r)
+{
+    
+}
 int
 applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
 {
@@ -104,7 +112,7 @@ applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
 		if (*x > sw)
 			*x = sw - WIDTH(c);
 		if (*y > sh)
-			*y = sh - HEIGHT(c);
+		  *y = sh - HEIGHT(c);
 		if (*x + *w + 2 * c->bw < 0)
 			*x = 0;
 		if (*y + *h + 2 * c->bw < 0)
@@ -662,7 +670,6 @@ focusstack(const Arg *arg)
 	}
 }
 
-void
 genaltkeys(void)
 {
     altkeys = malloc(sizeof(Key) * LENGTH(keys));
@@ -1434,6 +1441,22 @@ setup(void)
     
 	grabkeys();
 	focus(NULL);
+
+    /* X is set up, hit the RC file */
+
+/*    char buf[256];
+
+    snprintf(buf, 256, "%s/.tdwmrc", getenv("HOME"));
+	printf("TDWMRC: %s\n", buf);
+    FILE *rc = fopen(buf, "r");
+
+    if (rc) {
+        fclose(rc);
+        int pid = fork();
+        if (pid == 0) {
+            execl(buf, ".tdwmrc");
+        }
+    }*/
 }
 
 void

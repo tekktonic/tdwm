@@ -48,6 +48,7 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
 	int bw, oldbw;
 	unsigned int tag;
+    double transparency;
 	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
 	Client *next;
 	Client *snext;
@@ -107,6 +108,7 @@ typedef struct {
 	const char *title;
 	int tag;
 	int isfloating;
+    double transparency;
 	int monitor;
 } Rule;
 
@@ -174,6 +176,7 @@ static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
+static void settrans(Client *c, Rule *r);
 static void setup(void);
 static void showhide(Client *c);
 static void sigchld(int unused);
