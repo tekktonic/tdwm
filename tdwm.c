@@ -439,9 +439,9 @@ configurerequest(XEvent *e)
 Monitor *
 createmon(void)
 {
-	Monitor *m;
+    Monitor *m;
     Tag *t;
-	m = ecalloc(1, sizeof(Monitor));
+    m = ecalloc(1, sizeof(Monitor));
     m->currtag = 0;
     for (int i = 0; i < 10; i++) {
         t = &(m->tags[i]);
@@ -452,7 +452,7 @@ createmon(void)
         t->layout = &layouts[0];
         strncpy(t->ltsymbol, layouts[0].symbol, sizeof t->ltsymbol);
     }
-	return m;
+    return m;
 }
 
 void
