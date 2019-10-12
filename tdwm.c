@@ -98,6 +98,7 @@ settrans(Client *c, Rule *r)
 {
     
 }
+
 int
 applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
 {
@@ -670,7 +671,7 @@ focusstack(const Arg *arg)
 	}
 }
 
-genaltkeys(void)
+static void genaltkeys(void)
 {
     altkeys = malloc(sizeof(Key) * LENGTH(keys));
 
@@ -1407,6 +1408,7 @@ setup(void)
 	netatom[NetWMName] = XInternAtom(dpy, "_NET_WM_NAME", False);
 	netatom[NetWMState] = XInternAtom(dpy, "_NET_WM_STATE", False);
 	netatom[NetWMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
+        netatom[NetWMFullscreenExclusive] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN_EXCLUSIVE", False);
 	netatom[NetWMWindowType] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
 	netatom[NetWMWindowTypeDialog] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DIALOG", False);
 	netatom[NetClientList] = XInternAtom(dpy, "_NET_CLIENT_LIST", False);
@@ -1872,7 +1874,7 @@ updatewindowtype(Client *c)
 	Atom state = getatomprop(c, netatom[NetWMState]);
 	Atom wtype = getatomprop(c, netatom[NetWMWindowType]);
 
-	if (state == netatom[NetWMFullscreen])
+	if (state == netatom[NetWMFullscreen] || state == netatom[NetWMFullscreenExclusive])
 		setfullscreen(c, 1);
 	if (wtype == netatom[NetWMWindowTypeDialog])
 		c->isfloating = 1;

@@ -2,9 +2,9 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"monospace:size=10"
+	"monofur:size=10"
 };
-static const char dmenufont[]       = "monospace:size=10";
+static const char dmenufont[]       = "monofur:size=10";
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#333333";
 static const char normfgcolor[]     = "#eeeeee";
@@ -76,11 +76,11 @@ static const char *voldowncmd[]  = { "tdwmvol.sh", "-5", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_t,      spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_l,          spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_t,          spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_e,      spawn,          {.v = editcmd } },
 	{ MODKEY,                       XK_b,      spawn,          {.v = browsecmd} },
-    { MODKEY|ShiftMask,             XK_a,      togglealtkeys,  {0}},
+        { MODKEY|ShiftMask,             XK_a,      togglealtkeys,  {0}},
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -101,7 +101,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_r,      restart,        {0} },
+	{ MODKEY|ShiftMask,             XK_r,            restart,        {0} },
+        { MODKEY,                       XK_KP_Subtract, spawn, {.v = voldowncmd}},
+        { MODKEY,                       XK_KP_Add,      spawn, {.v = volupcmd}},
     #ifdef __linux__
     { NULL,                         XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd}},
     { NULL,                         XF86XK_AudioRaiseVolume, spawn, {.v = volupcmd}},
