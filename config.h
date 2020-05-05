@@ -71,10 +71,11 @@ static Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *browsecmd[] = { "firefox", NULL};
-static const char *editcmd[] = { "emacsclient", "-c", NULL};
+static const char *editcmd[] = { "emacs", NULL};
 static const char *termcmd[]  = { "urxvtc", NULL};
 static const char *volupcmd[]  = { "tdwmvol.sh", "5", NULL};
 static const char *voldowncmd[]  = { "tdwmvol.sh", "-5", NULL};
+static const char *mutecmd[] = {"amixer", "-q", "-D", "pulse", "sset", "Master", "toggle", NULL};
 static const char *lockcmd[] = {"xscreensaver-command", "-lock", NULL};
 
 static Key keys[] = {
@@ -110,6 +111,7 @@ static Key keys[] = {
 #ifdef __linux__
                      { NULL,                         XF86XK_AudioLowerVolume, spawn, {.v = voldowncmd}},
                      { NULL,                         XF86XK_AudioRaiseVolume, spawn, {.v = volupcmd}},
+                     { NULL,                         XF86XK_AudioMute,        spawn, {.v = mutecmd}},
 #endif
                      TAGKEYS(                        XK_1,                      0)
                      TAGKEYS(                        XK_2,                      1)
