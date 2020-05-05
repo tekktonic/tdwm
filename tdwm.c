@@ -57,6 +57,8 @@ struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 #define OPAQUE 0xffffffff
 
+static bool noautorun = false;
+
 /* function implementations */
 void
 applyrules(Client *c)
@@ -1217,7 +1219,7 @@ restack(Monitor *m)
 void
 restart(const Arg *arg)
 {
-  execlp("tdwm", "tdwm", NULL);
+  execlp("tdwm", "tdwm", "-n", NULL);
 }
 
 void
@@ -2001,11 +2003,29 @@ zoom(const Arg *arg)
 	pop(c);
 }
 
+void
+autorun(void) {
+	if (!noautorun) {
+		char runfile[256] = {};
+		snprintf(runfile, 255, "%s/.autorun", getenv("HOME"));
+		FILE *fp = fopen(runfile, "r");
+
+		if (fp) {
+			fclose(fp);
+			const char *autoruncmd[] = {getenv("SHELL"), runfile, NULL};
+			spawn(&((Arg){.v = autoruncmd}));
+		}
+	}
+}
+
 int
 main(int argc, char *argv[])
 {
-	if (argc == 2 && !strcmp("-v", argv[1]))
-		die("tdwm-"VERSION "\n");
+	if (argc == 2)
+		if (!strcmp("-v", argv[1]))
+			die("tdwm-"VERSION "\n");
+		else if (!strcmp("-n", argv[1]))
+			noautorun = true;
 	else if (argc != 1)
 		die("usage: tdwm [-v]\n");
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
@@ -2015,6 +2035,7 @@ main(int argc, char *argv[])
 	checkotherwm();
 	setup();
 	scan();
+	autorun();
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
