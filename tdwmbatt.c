@@ -48,7 +48,7 @@ int main(void)
 
         fscanf(fd, "%d", &batt_life[1]);
         fclose(fd);
-        fd = fopen("/sys/class/power_supply/BAT0/status", "r");
+        fd = fopen("/sys/class/power_supply/BAT1/status", "r");
         if (!fd)
             return 1;
         fread(charge_buf, 1, 9, fd);
@@ -61,7 +61,7 @@ int main(void)
 #endif
 
     for (int i = 0; i < batteries; i++)
-        printf("%d%% %s ", batt_life[i], batt_charging[i] ? "⌁" : " ");
+        printf("%d%% %s ", batt_life[i], batt_charging[i] ? "C" : " ");
 
     return 0;
 }
