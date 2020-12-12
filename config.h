@@ -70,8 +70,8 @@ static Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *browsecmd[] = { "firefox", NULL};
-static const char *editcmd[] = { "emacs", NULL};
+static const char *browsecmd[] = { "seamonkey", NULL};
+static const char *editcmd[] = { "emacsclient", "-c", NULL};
 static const char *termcmd[]  = { "urxvtc", NULL};
 static const char *volupcmd[]  = { "tdwmvol.sh", "5", NULL};
 static const char *voldowncmd[]  = { "tdwmvol.sh", "-5", NULL};
@@ -91,7 +91,7 @@ static Key keys[] = {
                      { MODKEY,                       XK_n,      incnmaster,     {.i = +1 } },
                      { MODKEY,                       XK_e,      incnmaster,     {.i = -1 } },
                      { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-                     { MODKEY,                       XK_i,      setmfact,       {.f = +0.05} },
+                     { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
                      { MODKEY,                       XK_Return, zoom,           {0} },
                      { MODKEY,                       XK_Tab,    view,           {.i=-1} },
                      { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
